@@ -1,0 +1,83 @@
+# Definir lista de productos
+productos = []
+
+# Función para registrar un nuevo producto
+def registrar_producto():
+    codigo = input("Ingrese el código del producto: ")
+    nombre = input("Ingrese el nombre del producto: ")
+    valor_compra = float(input("Ingrese el valor de compra del producto: "))
+    valor_venta = float(input("Ingrese el valor de venta del producto: "))
+    stock_minimo = int(input("Ingrese el stock mínimo permitido: "))
+    stock_maximo = int(input("Ingrese el stock máximo permitido: "))
+    proveedor = input("Ingrese el nombre del proveedor del producto: ")
+    producto = {"codigo": codigo, "nombre": nombre, "valor_compra": valor_compra, "valor_venta": valor_venta, "stock_minimo": stock_minimo, "stock_maximo": stock_maximo, "proveedor": proveedor, "stock": 0}
+    productos.append(producto)
+    print("Producto registrado con éxito.")
+
+# Función para visualizar la lista de productos
+def visualizar_productos():
+    print("Lista de productos:")
+    for producto in productos:
+        print(f"Código: {producto['codigo']}")
+        print(f"Nombre: {producto['nombre']}")
+        print(f"Valor de compra: {producto['valor_compra']}")
+        print(f"Valor de venta: {producto['valor_venta']}")
+        print(f"Stock mínimo permitido: {producto['stock_minimo']}")
+        print(f"Stock máximo permitido: {producto['stock_maximo']}")
+        print(f"Proveedor: {producto['proveedor']}")
+        print(f"Stock actual: {producto['stock']}")
+        print()
+
+# Función para actualizar el stock de un producto
+def actualizar_stock():
+    codigo = input("Ingrese el código del producto: ")
+    cantidad = int(input("Ingrese la cantidad que desea agregar o restar al stock: "))
+    for producto in productos:
+        if producto["codigo"] == codigo:
+            producto["stock"] += cantidad
+            print("Stock actualizado con éxito.")
+            return
+    print("Producto no encontrado.")
+
+# Función para generar un informe de productos críticos
+def informe_productos_criticos():
+    print("Productos críticos:")
+    for producto in productos:
+        if producto["stock"] < producto["stock_minimo"]:
+            print(f"Código: {producto['codigo']}")
+            print(f"Nombre: {producto['nombre']}")
+            print(f"Stock actual: {producto['stock']}")
+            print()
+
+# Función para calcular la ganancia potencial total
+def calcular_ganancia_potencial():
+    ganancia_potencial_total = 0
+    for producto in productos:
+        ganancia_potencial = (producto["valor_venta"] - producto["valor_compra"]) * producto["stock"]
+        ganancia_potencial_total += ganancia_potencial
+    print(f"Ganancia potencial total: ${ganancia_potencial_total}")
+
+# Menú principal
+while True:
+    print("Menú principal:")
+    print("1. Registrar producto")
+    print("2. Visualizar productos")
+    print("3. Actualizar stock")
+    print("4. Informe de productos críticos")
+    print("5. Calcular ganancia potencial")
+    print("6. Salir")
+    opcion = input("Ingrese una opción: ")
+    if opcion == "1":
+        registrar_producto()
+    elif opcion == "2":
+        visualizar_productos()
+    elif opcion == "3":
+        actualizar_stock()
+    elif opcion == "4":
+        informe_productos_criticos()
+    elif opcion == "5":
+        calcular_ganancia_potencial()
+    elif opcion == "6":
+        break
+    else:
+        print("Opción inválida.")

@@ -1,0 +1,70 @@
+# Importar librerías necesarias
+import pandas as pd
+
+# Crear un diccionario vacío para almacenar los datos
+datos = {'Ciudad': [], 'Sismos': []}
+
+# Función para registrar una ciudad
+def registrar_ciudad():
+    ciudad = input('Ingrese el nombre de la ciudad: ')
+    datos['Ciudad'].append(ciudad)
+    datos['Sismos'].append([])
+
+# Función para registrar un sismo
+def registrar_sismo():
+    ciudad = input('Ingrese el nombre de la ciudad: ')
+    if ciudad not in datos['Ciudad']:
+        print('La ciudad no está registrada.')
+        return
+    fecha = input('Ingrese la fecha del sismo (en formato dd/mm/aaaa): ')
+    magnitud = float(input('Ingrese la magnitud del sismo: '))
+    datos['Sismos'][datos['Ciudad'].index(ciudad)].append((fecha, magnitud))
+
+# Función para buscar sismos por ciudad
+def buscar_sismos():
+    ciudad = input('Ingrese el nombre de la ciudad: ')
+    if ciudad not in datos['Ciudad']:
+        print('La ciudad no está registrada.')
+        return
+    sismos = datos['Sismos'][datos['Ciudad'].index(ciudad)]
+    if len(sismos) == 0:
+        print('No hay sismos registrados en esta ciudad.')
+        return
+    print('Fecha\t\tMagnitud')
+    for fecha, magnitud in sismos:
+        print(fecha + '\t' + str(magnitud))
+
+# Función para generar un informe de riesgo
+def informe_riesgo():
+    df = pd.DataFrame(columns=['Ciudad', 'Promedio de magnitud', 'Máxima magnitud'])
+    for i, ciudad in enumerate(datos['Ciudad']):
+        sismos = datos['Sismos'][i]
+        if len(sismos) == 0:
+            continue
+        promedio = sum(magnitud for fecha, magnitud in sismos) / len(sismos)
+        maxima = max(magnitud for fecha, magnitud in sismos)
+        df.loc[i] = [ciudad, promedio, maxima]
+    df = df.sort_values(by='Promedio de magnitud', ascending=False)
+    print(df)
+
+# Ciclo principal del programa
+while True:
+    print('Menú:')
+    print('1. Registrar Ciudad')
+    print('2. Registrar Sismo')
+    print('3. Buscar sismos por ciudad')
+    print('4. Informe de riesgo')
+    print('5. Salir')
+    opcion = input('Ingrese una opción: ')
+    if opcion == '1':
+        registrar_ciudad()
+    elif opcion == '2':
+        registrar_sismo()
+    elif opcion == '3':
+        buscar_sismos()
+    elif opcion == '4':
+        informe_riesgo()
+    elif opcion == '5':
+        break
+    else:
+        print('Opción inválida.')
