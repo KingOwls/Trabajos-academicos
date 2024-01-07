@@ -1,7 +1,7 @@
-# Definir lista de productos
+
 productos = []
 
-# Función para registrar un nuevo producto
+
 def registrar_producto():
     codigo = input("Ingrese el código del producto: ")
     nombre = input("Ingrese el nombre del producto: ")
@@ -14,7 +14,7 @@ def registrar_producto():
     productos.append(producto)
     print("Producto registrado con éxito.")
 
-# Función para visualizar la lista de productos
+
 def visualizar_productos():
     print("Lista de productos:")
     for producto in productos:
@@ -28,7 +28,7 @@ def visualizar_productos():
         print(f"Stock actual: {producto['stock']}")
         print()
 
-# Función para actualizar el stock de un producto
+
 def actualizar_stock():
     codigo = input("Ingrese el código del producto: ")
     cantidad = int(input("Ingrese la cantidad que desea agregar o restar al stock: "))
@@ -39,7 +39,7 @@ def actualizar_stock():
             return
     print("Producto no encontrado.")
 
-# Función para generar un informe de productos críticos
+
 def informe_productos_criticos():
     print("Productos críticos:")
     for producto in productos:
@@ -49,7 +49,6 @@ def informe_productos_criticos():
             print(f"Stock actual: {producto['stock']}")
             print()
 
-# Función para calcular la ganancia potencial total
 def calcular_ganancia_potencial():
     ganancia_potencial_total = 0
     for producto in productos:
@@ -57,7 +56,7 @@ def calcular_ganancia_potencial():
         ganancia_potencial_total += ganancia_potencial
     print(f"Ganancia potencial total: ${ganancia_potencial_total}")
 
-# Menú principal
+
 while True:
     print("Menú principal:")
     print("1. Registrar producto")

@@ -1,16 +1,16 @@
-# Importar librerías necesarias
+
 import pandas as pd
 
-# Crear un diccionario vacío para almacenar los datos
+
 datos = {'Ciudad': [], 'Sismos': []}
 
-# Función para registrar una ciudad
+
 def registrar_ciudad():
     ciudad = input('Ingrese el nombre de la ciudad: ')
     datos['Ciudad'].append(ciudad)
     datos['Sismos'].append([])
 
-# Función para registrar un sismo
+
 def registrar_sismo():
     ciudad = input('Ingrese el nombre de la ciudad: ')
     if ciudad not in datos['Ciudad']:
@@ -20,7 +20,7 @@ def registrar_sismo():
     magnitud = float(input('Ingrese la magnitud del sismo: '))
     datos['Sismos'][datos['Ciudad'].index(ciudad)].append((fecha, magnitud))
 
-# Función para buscar sismos por ciudad
+
 def buscar_sismos():
     ciudad = input('Ingrese el nombre de la ciudad: ')
     if ciudad not in datos['Ciudad']:
@@ -34,7 +34,7 @@ def buscar_sismos():
     for fecha, magnitud in sismos:
         print(fecha + '\t' + str(magnitud))
 
-# Función para generar un informe de riesgo
+
 def informe_riesgo():
     df = pd.DataFrame(columns=['Ciudad', 'Promedio de magnitud', 'Máxima magnitud'])
     for i, ciudad in enumerate(datos['Ciudad']):
@@ -47,7 +47,7 @@ def informe_riesgo():
     df = df.sort_values(by='Promedio de magnitud', ascending=False)
     print(df)
 
-# Ciclo principal del programa
+
 while True:
     print('Menú:')
     print('1. Registrar Ciudad')
